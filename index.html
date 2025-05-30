@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login  - Matrix Style</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: monospace;
+      color: #0F0;
+      background: transparent;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+.title{
+  position:absolute;
+  top: 2%;
+  left: 30%;
+  font-family:Cursive;
+  text-align: center;
+}
+    .login-box {
+      position: relative;
+      top: 40%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      background:transparent;
+      padding: 40px;
+      text-align: right;
+    }
+
+    .login-box h2 {
+      margin-bottom: 40px;
+    }
+
+    .login-box input {
+      width: 80%;
+      padding: 10px;
+      margin: 20px 0;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+    }
+
+    .login-box button {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #00ff00;
+      border: none;
+      color: red;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 40px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrixCanvas"></canvas>
+<div class="title">
+  <h1> MOD APKS </h1>
+</div>
+  <div class="login-box">
+    <h2> LOGIN FOR DOWNLOAD</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="validateLogin()">Login</button>
+    <div class="error" id="error-message"></div>
+  </div>
+
+  <script>
+    // Matrix background animation
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const chars = "アァイィウヴエェオカガキギクグ0 1 ゲコゴサザシジスズセソタチッツテトナニヌネノハバパヒビピフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 12;
+    const columns = canvas.width / fontSize;
+    const drops = new Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      drops.forEach((y, index) => {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        const x = index * fontSize;
+        ctx.fillText(text, x, y * fontSize);
+
+        drops[index] = y * fontSize > canvas.height && Math.random() > 0.975 ? 0 : y + 1;
+      });
+    }
+
+    setInterval(drawMatrix, 33);
+
+    // Login validation
+    function validateLogin() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const error = document.getElementById("error-message");
+
+      if (user === "MODAPK" && pass === "pakistan") {
+        window.location.href = "load.html";
+      } else {
+        error.textContent = "Incorrect username or password!";
+      }
+    }
+  </script>
+</body>
+</html>
