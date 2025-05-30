@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matrix Download Page</title>
+  <style>
+    /* Reset and full screen setup */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+      background: transparent;
+      color: white;
+    }
+
+    /* Canvas for animated matrix background */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: block;
+      z-index: -1; /* behind content */
+    }
+
+    /* Centered download buttons */
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      z-index: 1;
+    }
+
+    .download-button {
+      background: black;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .download-button:hover {
+      background: rgba(0, 255, 0, 0.3);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrixCanvas"></canvas>
+  <div class="container">
+    <a href="https://drive.google.com/drive/folders/1LmSqZLR469LerWYLPDQqF9U6JHV7vy_x" class="download-button">Cap Cut Premium Apk</a>
+    <a href="https://drive.google.com/file/d/1DOMJQTWn_TohYxHUfcfI2uMXyaSxOS3i/view?usp=drivesdk" class="download-button">KINE MASTER PREMIUM APK</a>
+    <a href="https://drive.google.com/file/d/177VbV71oW8xI3JseXAQDzUFPR25zFZ6k/view?usp=drivesdk" class="download-button">FILMORA PREMIUM APK</a>
+    <a href="https://www.mediafire.com/file/4p1wtiv3hsvj7uv/Photoroom%20Pro%20v5.2.8%20-%20espacioapk.com.apk/file?dkey=z5iw3mtba2n&r=103" class="download-button">Photoroom Apk</a>
+    <a href="https://drive.google.com/file/d/1DLcJ33l-UsX_kcZRwRVJo_eH19LDOGsU/view?usp=drivesdk" class="download-button">CANVA MOD APK</a>
+  </div>
+
+  <script>
+    // Matrix animation
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const letters = 'アァイィウエエオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F0';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 50);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
+
