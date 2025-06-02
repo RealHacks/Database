@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Laser Download Page with More Bubbles</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Background Grid with pulsing glow */
+    body {
+      margin: 0;
+      background-color: #000;
+      position: relative;
+      height: 100vh;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image:
+        radial-gradient(circle, #0ff1, #000 40%),
+        repeating-linear-gradient(0deg, #0ff1 0, #0ff1 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(90deg, #0ff1 0, #0ff1 1px, transparent 1px, transparent 20px);
+      background-size: 100% 100%, 200px 200px, 200px 200px;
+      animation: bgMove 20s linear infinite, bgPulse 4s ease-in-out infinite alternate;
+      overflow-x: hidden;
+    }
+
+    @keyframes bgMove {
+      0% {
+        background-position: center, 0 0, 0 0;
+      }
+      100% {
+        background-position: center, 200px 200px, -200px -200px;
+      }
+    }
+
+    @keyframes bgPulse {
+      0% {
+        filter: drop-shadow(0 0 10px #0ff7);
+      }
+      100% {
+        filter: drop-shadow(0 0 30px #0ff9);
+      }
+    }
+
+    /* Container for all laser effects */
+    .laser-lines {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    /* Horizontal laser lines */
+    .laser-line {
+      position: absolute;
+      left: -150%;
+      width: 300%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #0ff, transparent);
+      filter: drop-shadow(0 0 10px #0ff);
+      mix-blend-mode: screen;
+      opacity: 0.2;
+      animation-timing-function: linear;
+    }
+
+    /* Vertical laser lines */
+    .laser-line-vertical {
+      position: absolute;
+      top: -150%;
+      height: 300%;
+      width: 2px;
+      background: linear-gradient(180deg, transparent, #0ff, transparent);
+      filter: drop-shadow(0 0 10px #0ff);
+      mix-blend-mode: screen;
+      opacity: 0.15;
+      animation-timing-function: linear;
+    }
+
+    /* Horizontal laser lines with different speeds and delays */
+    .line1 { top: 8vh; animation: laserLineMove 6s linear infinite; opacity: 0.35; }
+    .line2 { top: 18vh; animation: laserLineMove 7.5s linear infinite; opacity: 0.3; }
+    .line3 { top: 34vh; animation: laserLineMove 5.8s linear infinite; opacity: 0.4; }
+    .line4 { top: 52vh; animation: laserLineMove 8s linear infinite; opacity: 0.25; }
+    .line5 { top: 70vh; animation: laserLineMove 6.2s linear infinite; opacity: 0.35; }
+    .line6 { top: 85vh; animation: laserLineMove 7.2s linear infinite; opacity: 0.3; }
+
+    /* Vertical laser lines with different speeds and delays */
+    .vline1 { left: 10vw; animation: laserLineMoveVertical 7.5s linear infinite; opacity: 0.25; }
+    .vline2 { left: 25vw; animation: laserLineMoveVertical 6.8s linear infinite; opacity: 0.3; }
+    .vline3 { left: 40vw; animation: laserLineMoveVertical 8.3s linear infinite; opacity: 0.2; }
+    .vline4 { left: 60vw; animation: laserLineMoveVertical 7.1s linear infinite; opacity: 0.3; }
+    .vline5 { left: 75vw; animation: laserLineMoveVertical 6.5s linear infinite; opacity: 0.25; }
+    .vline6 { left: 90vw; animation: laserLineMoveVertical 7.8s linear infinite; opacity: 0.2; }
+
+    /* Animations for laser lines */
+    @keyframes laserLineMove {
+      0% {
+        transform: translateX(-100%);
+        filter: drop-shadow(0 0 6px #0ff);
+        background-position: 0 0;
+      }
+      50% {
+        filter: drop-shadow(0 0 15px #0ff);
+        background-position: 50% 0;
+      }
+      100% {
+        transform: translateX(100%);
+        filter: drop-shadow(0 0 6px #0ff);
+        background-position: 100% 0;
+      }
+    }
+
+    @keyframes laserLineMoveVertical {
+      0% {
+        transform: translateY(-100%);
+        filter: drop-shadow(0 0 6px #0ff);
+        background-position: 0 0;
+      }
+      50% {
+        filter: drop-shadow(0 0 15px #0ff);
+        background-position: 0 50%;
+      }
+      100% {
+        transform: translateY(100%);
+        filter: drop-shadow(0 0 6px #0ff);
+        background-position: 0 100%;
+      }
+    }
+
+    /* Floating neon bubbles */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: #0ff;
+      opacity: 0.2;
+      filter: drop-shadow(0 0 8px #0ff);
+      animation-timing-function: ease-in-out;
+      mix-blend-mode: screen;
+      animation-name: floatBubble;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    @keyframes floatBubble {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0.2;
+      }
+      50% {
+        transform: translate(calc(var(--dx, 10px)), calc(var(--dy, -15px)));
+        opacity: 0.6;
+      }
+      100% {
+        transform: translate(0, 0);
+        opacity: 0.2;
+      }
+    }
+
+    /* Button Styles */
+    .laser-button {
+      position: relative;
+      display: inline-block;
+      color: #0ff;
+      padding: 1rem 2rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+      border: 2px solid #0ff;
+      overflow: hidden;
+      background-color: transparent;
+      z-index: 10;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 0 10px #0ff50;
+    }
+
+    .laser-button::before,
+    .laser-button::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(90deg, transparent, #0ff, transparent);
+      animation: laser-scan 2s linear infinite;
+      opacity: 0.5;
+      z-index: -1;
+      filter: drop-shadow(0 0 8px #0ff);
+    }
+
+    .laser-button::after {
+      background: linear-gradient(0deg, transparent, #0ff, transparent);
+      animation: laser-scan-vert 3s linear infinite;
+    }
+
+    @keyframes laser-scan {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes laser-scan-vert {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+    .laser-button:hover {
+      background-color: rgba(0, 255, 255, 0.2);
+      color: #fff;
+      box-shadow: 0 0 20px #0ff;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-8 relative z-10">
+  <h1 class="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg z-10">Download Center</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 z-10">
+    <button class="laser-button">TIKTOK</button>
+    <button class="laser-button">FACEBOOK</button>
+    <button class="laser-button">YOUTUBE</button>
+    <button class="laser-button">INSTAGRAM</button>
+    <button class="laser-button">SNAPCHAT</button>
+  </div>
+
+  <!-- Laser Lines Background -->
+  <div class="laser-lines" aria-hidden="true">
+    <!-- Horizontal lines -->
+    <div class="laser-line line1"></div>
+    <div class="laser-line line2"></div>
+    <div class="laser-line line3"></div>
+    <div class="laser-line line4"></div>
+    <div class="laser-line line5"></div>
+    <div class="laser-line line6"></div>
+
+    <!-- Vertical lines -->
+    <div class="laser-line-vertical vline1"></div>
+    <div class="laser-line-vertical vline2"></div>
+    <div class="laser-line-vertical vline3"></div>
+    <div class="laser-line-vertical vline4"></div>
+    <div class="laser-line-vertical vline5"></div>
+    <div class="laser-line-vertical vline6"></div>
+
+    <!-- Floating neon bubbles -->
+    <div class="bubble" style="width:10px; height:10px; top: 15vh; left: 20vw; --dx: 12px; --dy: -16px; animation-duration: 6s; animation-delay: 0s;"></div>
+    <div class="bubble" style="width:6px; height:6px; top: 40vh; left: 50vw; --dx: 8px; --dy: -10px; animation-duration: 7.5s; animation-delay: 1s;"></div>
+    <div class="bubble" style="width:12px; height:12px; top: 75vh; left: 75vw; --dx: 15px; --dy: -12px; animation-duration: 5.8s; animation-delay: 2s;"></div>
+    <div class="bubble" style="width:8px; height:8px; top: 85vh; left: 10vw; --dx: 9px; --dy: -14px; animation-duration: 6.2s; animation-delay: 3s;"></div>
+    <div class="bubble" style="width:7px; height:7px; top: 25vh; left: 80vw; --dx: 11px; --dy: -15px; animation-duration: 8s; animation-delay: 4s;"></div>
+
+    <div class="bubble" style="width:9px; height:9px; top: 10vh; left: 35vw; --dx: 10px; --dy: -13px; animation-duration: 6.5s; animation-delay: 1.5s;"></div>
+    <div class="bubble" style="width:11px; height:11px; top: 20vh; left: 60vw; --dx: 14px; --dy: -11px; animation-duration: 7.2s; animation-delay: 3.5s;"></div>
+    <div class="bubble" style="width:5px; height:5px; top: 55vh; left: 15vw; --dx: 7px; --dy: -9px; animation-duration: 6.8s; animation-delay: 2.5s;"></div>
+    <div class="bubble" style="width:13px; height:13px; top: 65vh; left: 45vw; --dx: 16
