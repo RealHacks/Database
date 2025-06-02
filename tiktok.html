@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download TikTok Content</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: black;
+      overflow: hidden;
+      color: #fff;
+      position: relative;
+    }
+
+    .floating-logo {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      opacity: 0.5;
+      animation: float 30s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+
+    .container {
+      text-align: center;
+      background-color transparent;
+      padding: 40px;
+      border-radius: 20px;
+      z-index: 1;
+      position: Abs;
+    }
+
+    .download-button {
+      background-color: #ff0050;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 15px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: absolute;
+      transition: transform 0.3s;
+    }
+
+    .download-button:hover {
+      transform: scale(1.1);
+    }
+
+    .tiktok-logo {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      animation: logo-bounce 2s infinite;
+    }
+
+    @keyframes logo-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating logos -->
+  <img src="ptg.jpeg" class="floating-logo" style="left: 10%; animation-delay: 0s;" />
+  <img src="ptg.jpeg" class="floating-logo" style="left: 30%; animation-delay: 5s;" />
+  <img src="ptg.jpeg" class="floating-logo" style="left: 50%; animation-delay: 2s;" />
+  <img src="ptg.jpeg" class="floating-logo" style="left: 70%; animation-delay: 7s;" />
+  <img src="ptg.jpeg" class="floating-logo" style="left: 90%; animation-delay: 3s;" />
+<img src="ptg.jpeg" class="floating-logo" style="left: 10%; animation-delay: 0s;" />
+<img src="ptg.jpeg" class="floating-logo" style="left: 10%; animation-delay: 0s;" />
+<img src="ptg.jpeg" class="floating-logo" style="left: 10%; animation-delay: 0s;" />
+
+  <div class="container">
+    <h1>TIKTOK SERVICES</h1>
+<a href="https://nreer.com/" download>
+  <button class="download-button">
+    <img src="ptg.jpeg" class="tiktok-logo" alt="TikTok Logo" />
+    FREE LIKES
+  </button>
+</a>
+
+<a href="https://leofame.com/free-tiktok-views" download>
+  <button class="download-button">
+    <img src="ptg.jpeg" class="tiktok-logo" alt="TikTok Logo" />
+    FREE VIEWS
+  </button>
+</a>
+
+<a href="video3.mp4" download>
+  <button class="download-button">
+    <img src="ptg.jpeg" class="tiktok-logo" alt="TikTok Logo" />
+    Download 3
+  </button>
+</a>
+
+  </div>
+</body>
+</html>
